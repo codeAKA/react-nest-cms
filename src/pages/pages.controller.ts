@@ -42,13 +42,13 @@ export class PagesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.pagesService.findOne(+id);
+    return this.pagesService.findOne(id);
   }
 
   @Patch(':id')
   public async update(
     @Res() res: any,
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() updatePageDto: UpdatePageDto,
   ) {
     try {
@@ -62,14 +62,14 @@ export class PagesController {
       });
     } catch (err) {
       return res.status(HttpStatus.BAD_REQUEST).json({
-        message: 'Error: Page not updated!',
+        message: `Error: Page not updated! ${res} ${err}`,
         status: 400,
       });
     }
   }
 
   @Delete(':id')
-  public async remove(@Res() res: any, @Param('id') id: number) {
+  public async remove(@Res() res: any, @Param('id') id: string) {
     if (!id) {
       throw new NotFoundException('Page ID does not exist');
     }

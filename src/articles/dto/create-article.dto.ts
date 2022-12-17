@@ -1,11 +1,18 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
+import { Image } from 'src/common/models/image';
+import { Paragraph } from 'src/common/models/paragraph';
 
 @ApiTags('article')
 export class CreateArticleDto {
   @ApiProperty()
-  title: string;
+  id?: string;
+
   @ApiProperty()
-  paragraphs: string[];
+  title?: string;
+
   @ApiProperty()
-  images: string[];
+  columns?: number;
+
+  @ApiProperty()
+  contents: Array<Paragraph | Image>;
 }

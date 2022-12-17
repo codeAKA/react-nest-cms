@@ -1,6 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { PartialType } from '@nestjs/swagger';
 import { CreateArticleDto } from './create-article.dto';
 
-export interface UpdateArticleDto {
-  id: number;
+export class UpdateArticleDto extends PartialType(CreateArticleDto) {
+  id: string;
 }

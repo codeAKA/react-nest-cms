@@ -21,14 +21,13 @@ export class SectionsService {
   }
 
   public async findAll(): Promise<Section[]> {
-    // return this.sectionModel.find();
     return await this.sectionModel.find();
   }
   // Cannot populate path `article` because it is not in your schema. Set the `strictPopulate` option to false to override.
   public async findOne(id: string): Promise<Section> {
     const section = await this.sectionModel
       .findById({ _id: id })
-      .populate('articles')
+      .populate('article')
       .exec();
 
     if (!section) {

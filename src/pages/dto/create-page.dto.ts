@@ -1,8 +1,12 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
-import { Section } from 'src/sections/schema/section.schema';
+import { UpdateArticleDto } from 'src/articles/dto/update-article.dto';
+import { Article } from 'src/articles/schemas/article.schema';
 
 @ApiTags('pages')
 export class CreatePageDto {
+  @ApiProperty()
+  id: string;
+
   @ApiProperty()
   name: string;
 
@@ -10,5 +14,8 @@ export class CreatePageDto {
   title: string;
 
   @ApiProperty()
-  sections: Section[];
+  url: string;
+
+  @ApiProperty()
+  articles: Array<Article | UpdateArticleDto>;
 }

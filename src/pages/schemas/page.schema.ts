@@ -2,7 +2,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import * as mongoose from 'mongoose';
-import { Section } from 'src/sections/schema/section.schema';
+import { Article } from 'src/articles/schemas/article.schema';
 
 export type PageDocument = Page & mongoose.Document;
 
@@ -17,9 +17,13 @@ export class Page {
   @ApiProperty()
   title: string;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'sections' }] })
+  @Prop()
   @ApiProperty()
-  sections: Section[];
+  url: string;
+
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: Article.name }] })
+  @ApiProperty()
+  articles: Article[];
 }
 
 export const PageSchema = SchemaFactory.createForClass(Page);

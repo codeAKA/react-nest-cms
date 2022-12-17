@@ -1,8 +1,10 @@
 import { Document } from 'mongoose';
+import { Image } from 'src/common/models/image';
+import { Paragraph } from 'src/common/models/paragraph';
 
 export interface Article extends Document {
-  id: number;
+  id: string;
   title?: string;
-  paragraphs?: string[];
-  images?: string[];
+  columns?: number;
+  contents: Array<Paragraph | Image>;
 }

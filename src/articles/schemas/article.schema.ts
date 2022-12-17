@@ -1,24 +1,34 @@
 /* eslint-disable prettier/prettier */
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
-import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
+import { Image } from 'src/common/models/image';
+import { Paragraph } from 'src/common/models/paragraph';
 
-export type ArticleDocument = Article & Document;
+export type ArticleDocument = Article & mongoose.Document;
 
 @Schema()
 @ApiTags('article')
 export class Article {
   @Prop()
   @ApiProperty()
+  id: string;
+
+  @Prop()
+  @ApiProperty()
+  name: string;
+
+  @Prop()
+  @ApiProperty()
   title: string;
 
-  @Prop([String])
+  @Prop()
   @ApiProperty()
-  paragraphs: string[];
+  columns: number;
 
-  @Prop([String])
+  @Prop()
   @ApiProperty()
-  images: string[];
+  contents: Array<Paragraph | Image>;
 }
 
 export const ArticleSchema = SchemaFactory.createForClass(Article);

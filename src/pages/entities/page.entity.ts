@@ -1,7 +1,7 @@
+import { Article } from 'src/articles/entities/article.entity';
 export class Page {
-  constructor(
-    public id: number,
-    public title: string,
-    public sections: any[],
-  ) {}
+  id: string;
+  title: string;
+  url: string;
+  articles: Article[];
 }

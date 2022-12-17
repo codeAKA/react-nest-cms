@@ -21,7 +21,7 @@ export class Section {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: Article.name }] })
   // @Prop({ type: [ArticleSchema], default: [] })
   @ApiProperty()
-  @Type(() => Article)
+  // @Type(() => Article)
   articles: Article[];
 }
 export const SectionSchema = SchemaFactory.createForClass(Section);

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
@@ -14,22 +14,41 @@ export class ArticlesService {
   ) {}
 
   public async create(createArticleDto: CreateArticleDto): Promise<Article> {
-    return new this.articleModel(createArticleDto).save();
+    const article = await this.articleModel.create(createArticleDto);
+    // const section = new this.sectionModel(createSectionDto);
+    // section.populate('articles');
+    return article;
   }
 
-  findAll() {
-    return this.articleModel.find();
+  public async findAll(): Promise<Article[]> {
+    return await this.articleModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} article`;
+  public async findOne(id: string): Promise<Article> {
+    const article = await this.articleModel.findById({ _id: id }).exec();
+
+    if (!article) {
+      throw new NotFoundException(`Article #${id} not found`);
+    }
+
+    return article;
   }
 
-  update(id: number, updateArticleDto: UpdateArticleDto) {
-    return `This action updates a #${id} article`;
+  public async update(id: string, updateSectionDto: UpdateArticleDto) {
+    const article = await this.articleModel.findByIdAndUpdate(
+      { _id: id },
+      updateSectionDto,
+    );
+
+    if (!article) {
+      throw new NotFoundException(`Article #${id} not found`);
+    }
+
+    return article;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} article`;
+  public async remove(id: string): Promise<any> {
+    const deletedArticle = await this.articleModel.findByIdAndRemove(id);
+    return deletedArticle;
   }
 }

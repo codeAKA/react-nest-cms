@@ -13,7 +13,7 @@ import {
 import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
-import { Article } from './schemas/article.schema';
+// import { Article } from './schemas/article.schema';
 
 @Controller('article')
 export class ArticlesController {
@@ -44,14 +44,14 @@ export class ArticlesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id') id: string) {
     return this.articlesService.findOne(id);
   }
 
   @Patch(':id')
   public async update(
     @Res() res: any,
-    @Param('id') id: number,
+    @Param('id') id: string,
     @Body() updateArticleDto: UpdateArticleDto,
   ) {
     try {
@@ -72,7 +72,7 @@ export class ArticlesController {
   }
 
   @Delete(':id')
-  public async remove(@Res() res: any, @Param('id') id: number) {
+  public async remove(@Res() res: any, @Param('id') id: string) {
     if (!id) {
       throw new NotFoundException('Article ID does not exist');
     }

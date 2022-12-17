@@ -9,10 +9,12 @@ import {
   Res,
   HttpStatus,
   NotFoundException,
+  UseGuards,
 } from '@nestjs/common';
 import { SectionsService } from './sections.service';
 import { CreateSectionDto } from './dto/create-section.dto';
 import { UpdateSectionDto } from './dto/update-section.dto';
+import { JwtGuard } from 'src/auth/jwt.guard';
 
 @Controller('sections')
 export class SectionsController {
@@ -42,6 +44,7 @@ export class SectionsController {
     return this.sectionsService.findAll();
   }
 
+  // @UseGuards(JwtGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.sectionsService.findOne(id);
